@@ -8,8 +8,11 @@
 const students = require('../models/studentModel')
 
 exports.register = async (req, res) => {
-    const { name, address, mobile, email, gender, dob, course } = req.body
-    console.log(name, address, mobile, email, gender, dob, course);
+    const { name, address, mobile, email, gender, course } = req.body
+    var dateOfBirth = req.body.dob.split("-")
+    dateOfBirth = dateOfBirth[2]+"-"+dateOfBirth[1]+"-"+dateOfBirth[0]
+    const dob = dateOfBirth
+
     try {
         const existingUser = await students.findOne({ email })
         if (existingUser) {
